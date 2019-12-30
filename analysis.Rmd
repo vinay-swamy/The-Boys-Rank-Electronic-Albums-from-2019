@@ -1,0 +1,133 @@
+---
+title: "The Boys Rank Electronic Music - 2019"
+author: "Vinay Swamy"
+output: github_document
+---
+
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = F, warning = FALSE)
+```
+
+My take on our ranking of electronic music albums of 2019. To make this analysis a little easier, I'm only going to do the top 5 albums from each person.
+
+```{r, message=FALSE}
+library(tidyverse)
+library(knitr)
+library(DT)
+boys_artists <- c(
+        'moon boots
+        Ark patrol 
+        RL grime
+        justin jay
+        Big Wild
+        madeon 
+        FKJ
+        Elohim
+        The chemical brothers
+        Crooked colours
+        Flume
+        FKJ
+        Ark Patrol
+        SG Lewis
+        Hayden James
+        Sam Gellaitry
+        Joris Voorn
+        Madeon
+        Hot Since 82
+        Mr. Carmack
+        Madeon
+        MEMBA
+        Ark Patrol
+        Toro y Moi
+        Big Wild
+        Moon Boots
+        Flume
+        FKJ
+        Justin Jay
+        Andrew Bayer') %>% tolower %>% str_split('\n') %>% .[[1]] %>% str_squish %>%
+    .[c(1:5, 11:15, 21:25 )] %>% # select only the top 5 from each person.
+    {tibble(boyo=c(rep('Vinny', 5), rep('conner', 5), rep('Casey', 5)), artist=.)}
+good_artists <- boys_artists$artist %>% unique
+raw <- read_csv('data/CVC_metadata.csv.gz') 
+df <- raw %>% mutate(artist = tolower(artist))
+join_tab <- df %>% select(artist, album, genre) %>% distinct %>% filter(artist %in% good_artists)
+all_clean_data <- df %>% select(-artist, -genre) %>% inner_join(join_tab) %>% distinct
+
+```
+
+Spotify has an api to access metadata for a given track. I used the python library spotipy to pull the following informatin for each song in each album
+
+
+```{r}
+gcols <- all_clean_data %>% select(-contains('uri'), -album, -track_href, -artist, -id,-mode, -analysis_url ) %>% colnames 
+all_clean_data[1:5,gcols] %>% kable
+```
+dancebility through valence are features designed by spotify for a more quantitative measure of musicality 
+
+
+
+# Genre
+Each artist is assigned a genres, and all music they make falls under that genres 
+
+```{r}
+all_clean_data %>% select(album, artist,  genre) %>% distinct %>% kable
+```
+Theres a pretty wide spread of genres, with only bass trap being the only repeat genre.I have a suspicion that genres are assigned to an artist and then not changed after. For example, look at Madeon and Big Wild, which respectively are assigned as big room and edm. While the early work of these two artists might fit those labels, their new albums defintely do not.
+
+# Tempo
+Now lets compare the tempos between albums
+
+```{r}
+
+ggplot(data =all_clean_data) + 
+    geom_boxplot(aes(y=tempo)) + 
+    facet_wrap( ~ album)
+
+```
+
+Unsurpisingly the two house albums, Bimini road and Everything will come together, have the least variance in tempo. Good Faith, and Dawn(which i have not listened to) have the biggest spread in tempo
+
+# Music Features
+I was curious to see how well Spotify's music features capture the distinctness of each album
+First, from each album, I calculated the average correlation between songs using these features 
+
+```{r}
+all_clean_data %>% .[,5:15] %>% select( -mode) %>% colnames
+```
+
+
+```{r}
+avg_cor <- function(a_album){
+    acor <- filter(all_clean_data, album ==a_album) %>% 
+        .[,5:15] %>% select( -mode) %>% t %>% 
+        cor( method='spearman') %>% as.numeric %>% .[.!=1] %>% unique %>% mean 
+    return(acor)
+    
+}
+tibble(albums=all_clean_data$album %>% unique, `Average Correlation`=sapply(albums, avg_cor) ) %>% arrange(desc(`Average Correlation`)) %>%kable
+```
+
+
+So it looks like most albums have a fairly decent within-album similarity 
+
+
+I wanted to see how all the songs compare to each other, so I calculated the pairwise similarity between songs, and then clustered them based on similarity 
+
+```{r message=F}
+library(ComplexHeatmap)
+library(viridis)
+library(RColorBrewer)
+
+music_feature_data <- all_clean_data %>% 
+        .[,5:15] %>% select( -mode)
+mat <-  music_feature_data %>%  t %>% cor(method = 'spearman')
+col_list <- tibble(album=unique(all_clean_data$album), color=brewer.pal(12, 'Set3')) %>% left_join(all_clean_data) %>% pull(color)
+names(col_list) <- all_clean_data$album
+right_ano <-HeatmapAnnotation(album=all_clean_data$album, col = list(album=col_list), which = 'row')
+Heatmap(mat, col = viridis(100), name = 'spearman correlation', right_annotation = right_ano)
+```
+
+
+
