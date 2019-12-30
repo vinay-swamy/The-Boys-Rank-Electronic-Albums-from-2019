@@ -64,6 +64,8 @@ Spotify has an api to access metadata for a given track. I used the python libra
 gcols <- all_clean_data %>% select(-contains('uri'), -album, -track_href, -artist, -id,-mode, -analysis_url ) %>% colnames 
 all_clean_data[1:5,gcols] %>% kable
 ```
+
+
 dancebility through valence are features designed by spotify for a more quantitative measure of musicality 
 
 
@@ -74,6 +76,8 @@ Each artist is assigned a genres, and all music they make falls under that genre
 ```{r}
 all_clean_data %>% select(album, artist,  genre) %>% distinct %>% kable
 ```
+
+
 Theres a pretty wide spread of genres, with only bass trap being the only repeat genre.I have a suspicion that genres are assigned to an artist and then not changed after. For example, look at Madeon and Big Wild, which respectively are assigned as big room and edm. While the early work of these two artists might fit those labels, their new albums defintely do not.
 
 # Tempo

@@ -11,14 +11,16 @@ python library spotipy to pull the following informatin for each song in
 each
 album
 
-| track                           |   danceability |    energy |   key |   loudness |    speechiness |    acousticness | instrumentalness | liveness | valence |   tempo | type            | duration\_ms | time\_signature | genre      |
-| :------------------------------ | -------------: | --------: | ----: | ---------: | -------------: | --------------: | ---------------: | -------: | ------: | ------: | :-------------- | -----------: | --------------: | :--------- |
-| Star Sale                       |          0.689 |     0.464 |    11 |   \-11.610 |         0.0389 |         0.02900 |          0.65800 |    0.143 |   0.467 | 116.996 | audio\_features |       229625 |               4 | vapor soul |
-| Fiend                           |          0.547 |     0.396 |     5 |   \-12.082 |         0.0239 |         0.20300 |          0.07490 |    0.646 |   0.155 |  86.006 | audio\_features |       219953 |               4 | vapor soul |
-| Entropy                         |          0.523 |     0.330 |     8 |   \-10.417 |         0.0575 |         0.73000 |          0.08330 |    0.537 |   0.129 |  69.984 | audio\_features |       371016 |               4 | vapor soul |
-| Kraken                          |          0.675 |     0.421 |    11 |   \-12.913 |         0.0579 |         0.06190 |          0.00201 |    0.256 |   0.188 | 149.949 | audio\_features |       261922 |               4 | vapor soul |
-| Darling, You Can’t Walk Away    |          0.301 |     0.637 |     8 |    \-7.811 |         0.0389 |         0.00306 |          0.66200 |    0.296 |   0.255 | 192.046 | audio\_features |       193141 |               3 | vapor soul |
-| dancebility through valence are | features desig | ned by sp | otify | for a more | quantitative m | easure of music |            ality |          |         |         |                 |              |                 |            |
+| track                        | danceability | energy | key | loudness | speechiness | acousticness | instrumentalness | liveness | valence |   tempo | type            | duration\_ms | time\_signature | genre      |
+| :--------------------------- | -----------: | -----: | --: | -------: | ----------: | -----------: | ---------------: | -------: | ------: | ------: | :-------------- | -----------: | --------------: | :--------- |
+| Star Sale                    |        0.689 |  0.464 |  11 | \-11.610 |      0.0389 |      0.02900 |          0.65800 |    0.143 |   0.467 | 116.996 | audio\_features |       229625 |               4 | vapor soul |
+| Fiend                        |        0.547 |  0.396 |   5 | \-12.082 |      0.0239 |      0.20300 |          0.07490 |    0.646 |   0.155 |  86.006 | audio\_features |       219953 |               4 | vapor soul |
+| Entropy                      |        0.523 |  0.330 |   8 | \-10.417 |      0.0575 |      0.73000 |          0.08330 |    0.537 |   0.129 |  69.984 | audio\_features |       371016 |               4 | vapor soul |
+| Kraken                       |        0.675 |  0.421 |  11 | \-12.913 |      0.0579 |      0.06190 |          0.00201 |    0.256 |   0.188 | 149.949 | audio\_features |       261922 |               4 | vapor soul |
+| Darling, You Can’t Walk Away |        0.301 |  0.637 |   8 |  \-7.811 |      0.0389 |      0.00306 |          0.66200 |    0.296 |   0.255 | 192.046 | audio\_features |       193141 |               3 | vapor soul |
+
+dancebility through valence are features designed by spotify for a more
+quantitative measure of musicality
 
 # Genre
 
@@ -26,21 +28,27 @@ Each artist is assigned a genres, and all music they make falls under
 that
 genres
 
-| album                                  | artist         | genre                                                                                                                                                                                                                                                                                                                     |
-| :------------------------------------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Ark Patrol                             | ark patrol     | vapor soul                                                                                                                                                                                                                                                                                                                |
-| Good Faith                             | madeon         | big room                                                                                                                                                                                                                                                                                                                  |
-| Ylang Ylang EP                         | fkj            | filter house                                                                                                                                                                                                                                                                                                              |
-| Superdream                             | big wild       | edm                                                                                                                                                                                                                                                                                                                       |
-| Hi This Is Flume (Mixtape)             | flume          | australian dance                                                                                                                                                                                                                                                                                                          |
-| Bimini Road                            | moon boots     | deep house                                                                                                                                                                                                                                                                                                                |
-| everything will come together, pt. 1   | justin jay     | bass house                                                                                                                                                                                                                                                                                                                |
-| SAGA-II                                | memba          | bass trap                                                                                                                                                                                                                                                                                                                 |
-| NOVA Pure                              | rl grime       | bass trap                                                                                                                                                                                                                                                                                                                 |
-| Dawn                                   | sg lewis       | alternative r\&b                                                                                                                                                                                                                                                                                                          |
-| Outer Peace                            | toro y moi     | alternative dance                                                                                                                                                                                                                                                                                                         |
-| Between Us                             | hayden james   | aussietronica                                                                                                                                                                                                                                                                                                             |
-| Theres a pretty wide spread of genres, | with only bass | trap being the only repeat genre.I have a suspicion that genres are assigned to an artist and then not changed after. For example, look at Madeon and Big Wild, which respectively are assigned as big room and edm. While the early work of these two artists might fit those labels, their new albums defintely do not. |
+| album                                | artist       | genre             |
+| :----------------------------------- | :----------- | :---------------- |
+| Ark Patrol                           | ark patrol   | vapor soul        |
+| Good Faith                           | madeon       | big room          |
+| Ylang Ylang EP                       | fkj          | filter house      |
+| Superdream                           | big wild     | edm               |
+| Hi This Is Flume (Mixtape)           | flume        | australian dance  |
+| Bimini Road                          | moon boots   | deep house        |
+| everything will come together, pt. 1 | justin jay   | bass house        |
+| SAGA-II                              | memba        | bass trap         |
+| NOVA Pure                            | rl grime     | bass trap         |
+| Dawn                                 | sg lewis     | alternative r\&b  |
+| Outer Peace                          | toro y moi   | alternative dance |
+| Between Us                           | hayden james | aussietronica     |
+
+Theres a pretty wide spread of genres, with only bass trap being the
+only repeat genre.I have a suspicion that genres are assigned to an
+artist and then not changed after. For example, look at Madeon and Big
+Wild, which respectively are assigned as big room and edm. While the
+early work of these two artists might fit those labels, their new albums
+defintely do not.
 
 # Tempo
 
